@@ -1,0 +1,7 @@
+hadoopWordCount$TokenizerMapper.class
+hadoopWordCount.class
+hadoopWeather$MaxTemperatureReducer.class
+hadoopWeather.class
+readParquet.class
+hadoopWeather$MaxTemperatureMapper.class
+hadoopWordCount$IntSumReducer.class
