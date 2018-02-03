@@ -1,3 +1,4 @@
 hadoopWordCount$TokenizerMapper.class
 hadoopWordCount.class
+hadoopWordCount$TokenizerMapper$CaracteresEspeciales.class
 hadoopWordCount$IntSumReducer.class
