@@ -1,7 +1,6 @@
 # NUMA_mapreduce
 
 
-
 INICIAR DOCKER CON HADOOP
 levantar el docker modo pseudodistribuido:
 '''
