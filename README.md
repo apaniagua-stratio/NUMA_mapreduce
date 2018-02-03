@@ -2,6 +2,7 @@
 
 
 INICIAR DOCKER CON HADOOP
+
 Nos traemos imagen y lo ejecutamos
 ```
 docker pull sequenceiq/hadoop-docker:2.7.1
@@ -20,23 +21,35 @@ cd $HADOOP_PREFIX
 
 COMPILAR Y ENVIAR JAR Y EJEMPLO
 
-Compilar con maven:
+Desde nuestro terminal compilar con maven:
 ```
 mvn clean
 mvn package
 ```
 
-Obtener id de docker y enviar ejemplo y jar
+Después obtener id de docker y enviar ejemplo y jar al contenedor
 ```
 docker ps
-docker cp ejemplo1.txt containerid:/tmp/ejemplo1.txt
-docker cp /target/NUMAMapReduce1-1.0-SNAPSHOT.jar containerid:/tmp/ejemplo.txt
+docker cp ejemplo1.txt containerid:/tmp
+docker cp /target/NUMAMapReduce1-1.0-SNAPSHOT.jar containerid:/usr/local/hadoop/share/hadoop/mapreduce
 ```
 
+COPIAR A HDFS NUESTRO EJEMPLO Y EJECUTAR EL TRABAJO
+
+En el bash del contenedor de hadoop:
+```
+bin/hdfs dfs -put /tmp/ejemplo1.txt input
+bin/hadoop jar share/hadoop/mapreduce/NUMAMapReduce1-1.0-SNAPSHOT.jar hadoopWordCount input/ejemplo1.txt output/ejemplo1
+```
+
+Revisamos salida:
+```
+bin/hdfs dfs -cat output/ejemplo1/*
+```
 
 ACCEDER A HADOOP UI
 
-desde un terminal, obtener ip del contenedor:
+Desde nuestro terminal, obtener ip del contenedor docker:
 ```
 docker inspect 15f915157fe5 | grep IPAddress
 ```
