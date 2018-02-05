@@ -20,6 +20,8 @@ public class hadoopWeatherCounter {
     public static class MaxTemperatureMapper
             extends Mapper<LongWritable, Text, Text, IntWritable> {
         private static final int MISSING = 99999;
+        private static final int MINIMUM = 00000;
+        private static final int MAXIMUM = 00100;
 
         enum INCORRECTAS {
             TOO_LOW,
@@ -35,16 +37,18 @@ public class hadoopWeatherCounter {
             int airTemperature = Integer.parseInt(line.substring(46, 52));
             String quality = line.substring(67, 70);
 
-            if (airTemperature != MISSING) {
+            if (airTemperature > MAXIMUM) {
+                context.getCounter(INCORRECTAS.TOO_HIGH).increment(1);
+                System.out.println("Incrementado contador TOO_HIGH");
+            }
+            else if (airTemperature <= MINIMUM) {
+                context.getCounter(INCORRECTAS.TOO_LOW).increment(1);
+                System.out.println("Incrementado contador TOO_LOW");
+            }
+            else {
                 context.write(new Text(year), new IntWritable(airTemperature));
             }
-            else
-            {
-                context.getCounter(INCORRECTAS.TOO_HIGH).increment(1);
-                context.setStatus("Detected possibly corrupt record: see logs.");
-                System.out.println("Incrementado contador TOO_HIGH");
 
-            }
         }
     }
 

@@ -1,0 +1,3 @@
+hadoopParser.class
+hadoopParser$ParserMapper.class
+hadoopParser$ParserReducer.class
