@@ -14,13 +14,16 @@ public class testHadoop {
 
         //Text txt = new Text("(318, 0043012650999992006032418004N9+0500001N9+00031+99999999999N9+[1])");
         Text txt = new Text("(318, 0043012650999992016032418004N9+0500001N9+00038+99999999999N9+[1])");
+
         /*
         new MapDriver<LongWritable, Text, Text, IntWritable>()
                 .withMapper(new hadoopWeatherCounter.MaxTemperatureMapper())
                 .withInput(new LongWritable(0), txt)
                 .withOutput(new Text("2016"), new IntWritable(31))
                 .runTest();
-*/
+
         }
+        */
 
     }
+}

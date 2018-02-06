@@ -20,15 +20,26 @@ public class hadoopParser {
     public static class ParserMapper
             extends Mapper<LongWritable, Text, Text, IntWritable> {
 
+        String header="truckid,driverid,event,latitude,longitude,city,state,velocity,event_ind,idling_ind";
+        int limite;
         @Override
         public void map(LongWritable key, Text value, Context context)
                 throws IOException, InterruptedException {
 
+            //ojo el header
+
             String line = value.toString();
-            line=line.replaceAll("9","#");
-            Integer c = Integer.parseInt(line.substring(1,4));
-            IntWritable x = new IntWritable(c);
-            context.write(new Text(line), x);
+            if (!line.matches(header)) {
+                String[] result = line.split(",");
+
+                String camion = result[0];
+                String ciudad = result[5];
+
+                int velocidad = Integer.parseInt(result[7]);
+
+                IntWritable x = new IntWritable(velocidad);
+                context.write(new Text(camion + ciudad), x);
+            }
 
         }
     }
@@ -56,10 +67,6 @@ public class hadoopParser {
         }
 
         Configuration conf = new Configuration();
-
-        conf.set("fs.defaultFS", "hdfs://namenode:8020");
-        //conf.set("mapreduce.framework.name", "yarn");
-        conf.set("yarn.resourcemanager.address", "resourcemanager:8032");
 
         Job job = Job.getInstance(conf, "My hadoop parser");
         //definimos la clase q contiene nuestro mapper y reducer

@@ -31,14 +31,15 @@
         </dependency>
 
 
-        <!--
+
         <dependency>
             <groupId>org.apache.mrunit</groupId>
             <artifactId>mrunit</artifactId>
             <version>1.0.0</version>
             <scope>test</scope>
         </dependency>
-        https://mvnrepository.com/artifact/org.apache.mrunit/mrunit -->
+
+        <!-- https://mvnrepository.com/artifact/org.apache.mrunit/mrunit -->
 
 
         <!-- Hadoop test artifact for running mini clusters -->
